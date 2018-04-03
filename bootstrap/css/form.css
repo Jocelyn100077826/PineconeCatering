@@ -1,0 +1,46 @@
+.navbar{
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: darkmagenta;
+    color: aliceblue;
+    font-size: 1em;
+    border: 0;
+}
+
+.navbar-brand{
+    float: left;
+    min-height: 55px;
+}
+
+.navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover,{
+    color: aliceblue;
+    background-color: darkmagenta;
+}
+
+.navbar-inverse .navbar-nav li a{
+    color: azure;
+}
+
+
+
+.palel-primary
+{
+    border-color: #bce8f1;
+}
+
+.panel-primary>.panel-heading
+{
+    background:#bce8f1;
+    text-align: center;
+    color: cornflowerblue;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+	
+.panel-primary>.panel-body
+{
+    background-color: #EDEDED;
+}
+
+
+
