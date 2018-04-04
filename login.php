@@ -10,6 +10,7 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5
     elements and media queries -->
+    <link href="styles/style.css" rel="stylesheet" />
     
     <link href="bootstrap/css/form.css" rel="stylesheet" />
 </head>
@@ -18,7 +19,7 @@
     
 
     
-<div class="row">
+<div style="margin:50px;" class="row">
     <div class="col-md-6 col-md-12 col-md-6 col-md-offset-3">
 		<div class="panel panel-primary">
 			<div class="panel-heading"> Log in </div>
@@ -49,6 +50,12 @@
 	</div>
 </div>
   
+    <div class="footer">
+	<h3>Contact Information</h3>
+	<p>Steven : 010-8328234</p>
+	<p>Alberto : 019-43942934</p>
+	<p>Malibu : 013-24567892</p>
+</div> 
             
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->

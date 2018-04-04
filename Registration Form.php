@@ -11,14 +11,15 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5
     elements and media queries -->
+    <link href="styles/style.css" rel="stylesheet" />
     
     
 </head>
 
 <body>
     
-   <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid p-3 mb-2 bg-dark text-dark">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -33,20 +34,25 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Food Category</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer Profile <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="editpro.php">Edit Profile</a></li>
-            <li><a href="#">Log out</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
+			<li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+				<li><a href="#">Sets</a></li>
+				<li><a href="#">Categories</a></li>
+			  </ul>
+			</li>
+          
+			<li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> My Account <span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+				<li><a href="editpro.php">Edit Profile</a></li>
+				<li><a href="#">Logout</a></li>
+			  </ul>
+			</li>
+          
+			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -55,7 +61,7 @@
     <br>
     <br>
     
-<div class="row">
+<div style="margin:50px;" class="row">
     <div class="col-md-6 col-md-12 col-md-6 col-md-offset-3">
 		<div class="panel panel-primary">
 			<div class="panel-heading"> Register Here </div>
@@ -117,6 +123,13 @@
 		</div>
 	</div>
 </div>
+    
+    <div class="footer">
+	<h3>Contact Information</h3>
+	<p>Steven : 010-8328234</p>
+	<p>Alberto : 019-43942934</p>
+	<p>Malibu : 013-24567892</p>
+</div> 
   
             
 
