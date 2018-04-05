@@ -12,6 +12,9 @@ if (isset($_POST['updateprofile'])) {
         $password = $_POST['password'];
         $conpassword = $_POST['conpassword'];
 	
+       if ($password != $conpassword) {
+			array_push($errors, "Password do not match");
+		}
     
     if($password == $conpassword){
         $update = "UPDATE users SET  firstname = '$fname', lastname = '$lname', email = '$email' , username = '$username' , password = '$password' WHERE id = 2";
@@ -214,7 +217,6 @@ if (isset($_POST['updateprofile'])) {
 </div>
 <hr>
     
-
     <div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>
