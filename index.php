@@ -35,7 +35,7 @@
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
-				<li><a href="#">Categories</a></li>
+				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
           
@@ -51,12 +51,11 @@
 				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
-				<li><a href="login.php" <?php session_destroy(); ?>>Logout</a></li>
 			  </ul>
 			</li>
           
-			<li><a href="login.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="login.php" <?php session_destroy(); ?>><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

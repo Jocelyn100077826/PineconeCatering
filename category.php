@@ -7,6 +7,8 @@
     initial-scale=1.0" />
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <link href="bootstrap/css/cart.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5
     elements and media queries -->
    <link href="styles/style.css" rel="stylesheet" />
@@ -45,25 +47,48 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-</br>
-</br>
-</br>
 
-  <div id="content">
-	<?php
-		$db = mysqli_connect("localhost","root","","photos");
-		$sql = "SELECT * FROM images";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)){
-			echo "<div id='img_div'>";
-			echo "<img src='images/".$row['image']."'/>";
-			echo "<p>".$row['text']."</p>";
-			echo "</div>";
-		}
-		
-	?>
-	
-	</div>
+    <div  style="margin:100px;" class="container">
+    
+    <?php
+
+$connect = mysqli_connect('localhost', 'root', '12345678', 'cart');
+
+$query = 'SELECT * FROM products ORDER by id';
+
+$result = mysqli_query($connect, $query);
+
+    if($result):
+        if(mysqli_num_rows($result) > 0):
+            while($product = mysqli_fetch_assoc($result)):
+            /*print_r($product);*/
+            ?>
+       
+    <!--   <div class="col-sm-4 col-md-3">
+           <form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
+               
+               <div class="products">
+                   <img src="<?php echo $product['image']; ?>" class="img-responsive"/>
+                   <h4 class="text-info"> <?php echo $product['name']; ?> </h4>
+                   <h4>RM <?php echo $product['price']; ?></h4>
+                   <input type="text" name="quantity" class="form-control" value="1" />
+                   <input type="hidden" name="name" value="<?php echo $product['name']; ?>" />
+                   <input type="hidden" name="price" value="<?php echo $product['price']; ?>" />
+                   <input type="submit" name="addtocart" style="margin-top:10px;" class="btn btn-info" value="Add to Cart" />
+               </div>
+           </form>
+       </div> -->
+       
+       <?php
+            endwhile;
+        endif;
+    endif;
+
+?>
+        
+    </div>
+
+  
 
 
  <div class="footer">

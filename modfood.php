@@ -4,12 +4,12 @@
     if (isset($_POST['upload'])){
         //path to store uploaded image
         $target = "images/".basename($_FILES['image']['name']);
-        $db = mysqli_connect("localhost","root","","photos");
+        $db = mysqli_connect("localhost","root","12345678","cart");
         //get all the submitted data from the form
         $image =$_FILES['image']['name'];
-        $text = $_POST['text'];
+        $price = $_POST['price'];
         
-        $mysql = "INSERT INTO images (image, text) VALUES ('$image', '$text')";
+        $mysql = "INSERT INTO products (image, price) VALUES ('$image', '$price')";
         mysqli_query($db, $mysql); //stores the submitted data into the database table: images
         
         //move uploaded image into folder
@@ -86,13 +86,13 @@
         </div>
         </form>	
 <?php
-		$db = mysqli_connect("localhost","root","","photos");
-		$sql = "SELECT * FROM images";
+		$db = mysqli_connect("localhost","root","12345678","cart");
+		$sql = "SELECT * FROM products";
 		$result = mysqli_query($db, $sql);
 		while ($row = mysqli_fetch_array($result)){
 			echo "<div id='img_div'>";
 			echo "<img src='images/".$row['image']."'/>";
-			echo "<p>".$row['text']."</p>";
+			echo "<p>".$row['price']."</p>";
 			echo "</div>";
 		}
 		
