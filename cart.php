@@ -125,10 +125,10 @@ function pre_r($array)
       <ul class="nav navbar-nav navbar-right">
 			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
 			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
-				<li><a href="#">Categories</a></li>
+				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
           
@@ -139,7 +139,7 @@ function pre_r($array)
 			  </ul>
 			</li>
           
-			<li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" onclick="openNav()" aria-hidden="true"></span></a></li>
 			<li><a href="login.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -148,42 +148,104 @@ function pre_r($array)
     
    <div  style="margin:100px;" class="container"> 
     
-    <?php
+<?php
 
-$connect = mysqli_connect('localhost', 'root', '12345678', 'cart');
+$connect = mysqli_connect('localhost', 'root', '', 'cart');
+       
+$current = '';
 
-$query = 'SELECT * FROM products ORDER by id';
-
+$query = "SELECT * FROM products ORDER by id";
 $result = mysqli_query($connect, $query);
+
+$chineseQ = "SELECT * FROM products WHERE category = 'Chinese'  ORDER by id";
+$englishQ = "SELECT * FROM products WHERE category = 'English'  ORDER by id";
+$indianQ = "SELECT * FROM products WHERE category = 'Indian'  ORDER by id";
+$pakistaniQ = "SELECT * FROM products WHERE category = 'Pakistani'  ORDER by id";
+$spanishQ = "SELECT * FROM products WHERE category = 'Spanish'  ORDER by id";
+$thaiQ = "SELECT * FROM products WHERE category = 'Thai'  ORDER by id";
+
+
+if (isset($_POST['chinese'])) {
+    $result = mysqli_query($connect, $chineseQ);
+    $current = 'chinese';
+}
+if (isset($_POST['english'])) {
+    $result = mysqli_query($connect, $englishQ);
+    $current = 'english';
+}
+if (isset($_POST['indian'])) {
+    $result = mysqli_query($connect, $indianQ);
+    $current = 'indian';
+}
+if (isset($_POST['pakistani'])) {
+    $result = mysqli_query($connect, $pakistaniQ);
+    $current = 'pakistani';
+}
+if (isset($_POST['spanish'])) {
+    $result = mysqli_query($connect, $spanishQ);
+    $current = 'spanish';
+}
+if (isset($_POST['thai'])) {
+    $result = mysqli_query($connect, $thaiQ);
+    $current = 'thai';
+}
+       
+?>
+<form method="post" action="cart.php">
+<div class= "row">
+    <div class="col-xs-2">
+            <input type="submit" class="btn btn-primary" name="chinese" value="Chinese"/>
+        </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="english" value="Western"/>
+    </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="indian" value="Indian"/>
+    </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="pakistani" value="Pakistani"/>
+    </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="spanish" value="Spanish"/>
+    </div>
+			<input type="submit" class="btn btn-primary" name="thai" value="Thai"/>
+</div>
+</form>
+<br/>
+<?php
 
     if($result):
         if(mysqli_num_rows($result) > 0):
+       
             while($product = mysqli_fetch_assoc($result)):
             /*print_r($product);*/
-            ?>
+                
+                   echo "<div class='col-sm-4 col-md-3'>";
+                   echo "<form method='post' action='cart.php?action=add&id=".$product['id']."'>";
+
+                   echo "<div class='products' style='min-height:500px;height:500px;'>";
+                   echo "<img src='images/".$product['image']."' class='img-responsive' style='min-height:200px;height:200px;'/>";
+                    echo "<h4 class='text-info'>". $product['name']."</h4>";
+                   echo"<p>".$product['desp']."</p>";
+                   echo"<p>".$product['category']."</p>";
+                    echo"<h4>RM".$product['price']."</h4>";
+                    echo "<input type='text' name='quantity' class='form-control' value='1' />";
+                    echo "<input type='hidden' name='name' value='".$product['name']."' />";
+                   echo "<input type='hidden' name='desp' value='".$product['desp']."' />";
+                    echo "<input type='hidden' name='price' value='".$product['price']."' />";
+                    echo "<input type='submit' name='addtocart' style='margin-top:10px;' onclick='openNav()' class='btn btn-info' value='Add to Cart' />";
+
+                    echo "</div>";
+                    echo "</form>";
+                    echo "</div>"; 
        
-       <div class="col-sm-4 col-md-3">
-           <form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
-               
-               <div class="products">
-                   <img src="<?php echo $product['image']; ?>" class="img-responsive"/>
-                   <h4 class="text-info"> <?php echo $product['name']; ?> </h4>
-                   <h4>RM <?php echo $product['price']; ?></h4>
-                   <input type="text" name="quantity" class="form-control" value="1" />
-                   <input type="hidden" name="name" value="<?php echo $product['name']; ?>" />
-                   <input type="hidden" name="price" value="<?php echo $product['price']; ?>" />
-                   <input type="submit" name="addtocart" style="margin-top:10px;" class="btn btn-info" value="Add to Cart" />
-               </div>
-           </form>
-       </div> 
-       
-       <?php
             endwhile;
         endif;
     endif;
 
 ?> 
-       
+<div id="mySidenav" class="sidenav">
+      <a href="#" class="closebtn" onclick="closeNav()">x</a>
        <div style="clear:both"></div>
        <br />
        
@@ -215,7 +277,7 @@ $result = mysqli_query($connect, $query);
                    <td>
                     <a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
                         
-                        <div class="btn-danger"> Remove </div>
+                        <div class="btn-danger" onclick="openNav()"> Remove </div>
                     </a>   
                    </td>
                </tr>
@@ -227,7 +289,7 @@ $result = mysqli_query($connect, $query);
                ?>
                
                <tr>
-                   <td colspan="3" align="right"> Total </td>
+                   <td colspan="3" align="right">Total </td>
                    <td align="right">RM <?php echo number_format($total, 2); ?></td>
                    <td></td>
                </tr>
@@ -254,8 +316,12 @@ $result = mysqli_query($connect, $query);
            
        </div>
        
-       
-    </div> 
+    </div>
+</div> 
+      
+      <!--FOR SIDE CART-->
+      <link rel="stylesheet" type="text/css" href="style.css"/>
+      <script src="style.js"></script> 
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="bootstrap/js/jquery.min.js"></script>

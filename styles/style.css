@@ -24,3 +24,85 @@
 	text-align: center;
 	
 }
+
+#modfood form{
+    border: 1px solid black;
+    padding: 2% 25%;
+    margin: 3% 10%;
+}
+
+#modfood img{
+    float: left;
+    width:300px;
+    height: 140px;
+    margin-left: 10%;
+    display: block;
+}
+
+#modfood table{
+    width: 90%;
+    margin: 0 5%;
+    text-align: center;
+}
+#mod {
+    background-color:white;
+}
+
+#modfood th{
+    width: 40%;
+    text-align:center;
+    border: 1px solid black;
+    background-color: lavender;
+}
+
+#modfood hr{
+    border: 1px solid gray;
+    width: 80%;
+}
+
+#modfood td{
+    width: 20%;
+    border: 1px solid black;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    width:0px;
+    margin: auto;
+    border: 3px solid #111;
+}
+
+.sidenav th, .sidenav td{
+    color: lightgray;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+

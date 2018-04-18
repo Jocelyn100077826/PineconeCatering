@@ -1,15 +1,19 @@
 <?php
-    
+$update = false;
+
     //if upload button is pressed
     if (isset($_POST['upload'])){
         //path to store uploaded image
         $target = "images/".basename($_FILES['image']['name']);
-        $db = mysqli_connect("localhost","root","12345678","cart");
+        $db = mysqli_connect("localhost","root","","cart");
         //get all the submitted data from the form
+        $name = $_POST['name'];
         $image =$_FILES['image']['name'];
         $price = $_POST['price'];
+        $category = $_POST['category'];
+        $desp = $_POST['desp'];
         
-        $mysql = "INSERT INTO products (image, price) VALUES ('$image', '$price')";
+        $mysql = "INSERT INTO products (name, desp, image, category, price) VALUES ('$name','$desp','$image','$category', '$price')";
         mysqli_query($db, $mysql); //stores the submitted data into the database table: images
         
         //move uploaded image into folder
@@ -20,19 +24,75 @@
         }
         
     }
+
+if (isset($_POST['del'])) {
+    $id = $_POST['hidden'];
+    $db = mysqli_connect("localhost","root","","cart");
+    $deleteitem=  "DELETE FROM products WHERE id='$id'";
+	mysqli_query($db,$deleteitem);
+}
+
+if (isset($_POST['edit'])) {
+    $id = $_POST['hidden'];
+    $update = true;
+    $db = mysqli_connect("localhost","root","","cart");
+    $sql = "SELECT * FROM products WHERE id='$id'";
+    $result = mysqli_query($db, $sql);
+    while ($row = mysqli_fetch_array($result)){
+        $image = $row['image'];
+        $name = $row['name'];
+        $price = $row['price'];
+        $category = $row['category'];
+        $desp = $row['desp'];
+    }
+}
+
+    if (isset($_POST['update'])){
+        //path to store uploaded image
+        $target = "images/".basename($_FILES['uimage']['name']);
+        $db = mysqli_connect("localhost","root","","cart");
+        //get all the submitted data from the form
+        $id = $_POST['idhidden'];
+        $name = $_POST['uname'];
+        $image =$_FILES['uimage']['name'];
+        $price = $_POST['uprice'];
+        $category = $_POST['ucategory'];
+        $desp = $_POST['udesp'];
+        
+        if (!$image){
+            $image = $_POST['imghidden'];
+        }
+        
+        $mysql = "UPDATE products SET name='$name', image='$image', price='$price', category='$category', desp='$desp' WHERE id='$id'";
+        mysqli_query($db, $mysql); //stores the submitted data into the database table: images
+        
+        //$SESSION['message'] = "FOOD ITEM UPDATED";
+        //header('location: index.php');
+        
+        //move uploaded image into folder
+        if (move_uploaded_file($_FILES['uimage']['tmp_name'],$target)){
+            $msg = "Image uploaded successfully";
+        }else{
+            $msg = "There was a problem uploading image";
+        }
+        
+    }
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Upload</title>
-	 <meta charset="utf-8" />
+    <title>Food Upload</title>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,
     initial-scale=1.0" />
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5
-    elements and media queries -->
+    
+    <link href="bootstrap/css/cart.css" rel="stylesheet" />
    <link href="styles/style.css" rel="stylesheet" />
 </head>
 <body>
@@ -46,7 +106,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinecone</a>
+      <a class="navbar-brand" href="#">Pinocone</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,50 +114,123 @@
       <ul class="nav navbar-nav navbar-right">
 			<li><a href="index.php">Home</a></li>
 			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+			  <a href="modfood.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
-				<li><a href="category.php">Categories</a></li>
+				<li><a href="modfood.php">Categories</a></li>
 			  </ul>
 			</li>
 			<li class="active"><a href="modfood.php">Edit food</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="modfood.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-	
+    <div id="modfood">
 	<br/>
 	<br/>
 	<br/>
-    <div id="content">
-	
+    
+	<?php if ($update == true):  ?>
+        
     <form method="post" action="modfood.php" enctype="multipart/form-data">
         <input type="hidden" name="size" value="1000000"/>
         <div>
-            <input type="file" name="image"/>
+            <input type="file" name="uimage" />
+            <input type="hidden" name="idhidden" value="<?php echo $id; ?>"/>
+            <input type="hidden" name="imghidden" value="<?php echo $image; ?>"/>
         </div>
         <div>
-            <textarea name="text" cols="40" placeholder="Say something about this..."></textarea>
+            <label>Name: </label><br/><input type="text" name="uname" placeholder="name" value="<?php echo $name; ?>"/>
         </div>
         <div>
-            <input type="submit" name="upload" value="Upload Image"/>
+            <label>Price: </label><br/><input type="number" cols="40"  name="uprice" step="0.01" placeholder="0.00" value="<?php echo $price; ?>"/>
+        </div>
+        <div>
+            <label>Description: </label><br/><textarea name="udesp" placeholder="Write something about this..." rows="4" cols="50"><?php echo $desp; ?></textarea>
+        </div>
+        <div>
+            <label>Category: </label><br/>
+            <select name="ucategory">
+                  <option value="Chinese">Chinese</option>
+                  <option value="English">English</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Pakistani">Pakistani</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="Thai">Thai</option>
+              </select>
+        </div>
+        <div>
+            <br/>
+            
+            <input type="submit" name="update" value="Update"/>
         </div>
         </form>	
-<?php
-		$db = mysqli_connect("localhost","root","12345678","cart");
-		$sql = "SELECT * FROM products";
-		$result = mysqli_query($db, $sql);
-		while ($row = mysqli_fetch_array($result)){
-			echo "<div id='img_div'>";
-			echo "<img src='images/".$row['image']."'/>";
-			echo "<p>".$row['price']."</p>";
-			echo "</div>";
-		}
-		
-?>
-	
+        
+        <?php else:  ?>
+          <form method="post" action="modfood.php" enctype="multipart/form-data">
+              
+        <input type="hidden" name="size" value="1000000"/>
+        <div>
+            <input type="file" name="image" />
+            <input type="hidden" name="idhidden" />
+        </div>
+        <div>
+            <label>Name: </label><br/><input type="text" name="name" placeholder="name"/>
+        </div>
+        <div>
+            <label>Price: </label><br/><input type="number" cols="40"  name="price" step="0.01" placeholder="0.00" />
+        </div>
+        <div>
+            <label>Description: </label><br/><textarea name="desp" placeholder="Write something about this..." value="<?php echo $desp; ?>" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <label>Category: </label><br/>
+              <select name="category">
+                  <option value="Chinese">Chinese</option>
+                  <option value="English">English</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Pakistani">Pakistani</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="Thai">Thai</option>
+              </select>
+        </div>
+            <br/>
+            <input type="submit" name="upload" value="Upload Food Item"/>
+        </form>	
+        <?php endif  ?>
+        
+    <div id='imgdiv'>
+        <table>
+        <tr>
+            <th colspan="4"><h3>Food items</h3><hr/></th>    
+        </tr>
+        
+            <?php
+                    $db = mysqli_connect("localhost","root","","cart");
+                    $sql = "SELECT * FROM products";
+                    $result = mysqli_query($db, $sql);
+                    while ($row = mysqli_fetch_array($result)){
+                        echo "<form method='post' action='modfood.php' enctype='multipart/form-data'>";
+                        echo "<tr>";
+                        echo "<th><img src='images/".$row['image']."'/></th>";
+                        echo "<td><p>".$row['name']."</p></td>";
+                        echo "<td><p>".$row['desp']."<br/>RM ".$row['price']."</p></td>";
+                        echo "<input type='hidden' name='hidden' value='".$row['id']."'/>";
+                        echo "<input type='hidden' name='hname' value='".$row['name']."'/>";
+                        echo "<input type='hidden' name='hprice' value='".$row['price']."'/>";
+                        echo "<input type='hidden' name='himage' value='".$row['image']."'/>";
+                        echo "<td><input type='submit' name='edit' value='EDIT'/><br/><br/><input type='submit' name='del' value='DELETE'/>
+                        </td>";
+                        echo "</tr>";
+                        echo "</form>";
+
+                    }
+
+            ?>
+        </table>
+    </div>
 </div>
 
  <div class="footer">

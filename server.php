@@ -1,6 +1,6 @@
 <?php
     // connect to the database
-    $con = mysqli_connect('localhost', 'root', '12345678', 'registration');
+    $con = mysqli_connect('localhost', 'root', '', 'registration');
 	$errors = array();
 	
 	if (isset($_POST['register'])) {

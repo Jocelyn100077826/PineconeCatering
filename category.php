@@ -48,45 +48,92 @@
 </nav>
 
 
-    <div  style="margin:100px;" class="container">
+<div  style="margin:100px;" class="container">
+<div class="page-header">
+  <h1>Categories</h1>
+</div>
     
-    <?php
-
-$connect = mysqli_connect('localhost', 'root', '12345678', 'cart');
-
-$query = 'SELECT * FROM products ORDER by id';
-
-$result = mysqli_query($connect, $query);
-
-    if($result):
-        if(mysqli_num_rows($result) > 0):
-            while($product = mysqli_fetch_assoc($result)):
-            /*print_r($product);*/
-            ?>
-       
-    <!--   <div class="col-sm-4 col-md-3">
-           <form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
-               
-               <div class="products">
-                   <img src="<?php echo $product['image']; ?>" class="img-responsive"/>
-                   <h4 class="text-info"> <?php echo $product['name']; ?> </h4>
-                   <h4>RM <?php echo $product['price']; ?></h4>
-                   <input type="text" name="quantity" class="form-control" value="1" />
-                   <input type="hidden" name="name" value="<?php echo $product['name']; ?>" />
-                   <input type="hidden" name="price" value="<?php echo $product['price']; ?>" />
-                   <input type="submit" name="addtocart" style="margin-top:10px;" class="btn btn-info" value="Add to Cart" />
-               </div>
-           </form>
-       </div> -->
-       
-       <?php
-            endwhile;
-        endif;
-    endif;
-
-?>
-        
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/chinesefoodthumbnail.jpg" alt="Chinese Food Thumbnail">
+      <div class="caption">
+        <h3>Chinese Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="chinese" value="Order Now"/>
+          </form>
+          
+      </div>
     </div>
+  </div>
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/westernfoodthumbnail.jpg" alt="Western Food Thumbnail">
+      <div class="caption">
+        <h3>Western Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="english" value="Order Now"/>
+          </form>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/indianfoodthumbnail.jpg" alt="Indian Food Thumbnail">
+      <div class="caption">
+        <h3>Indian Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="indian" value="Order Now"/>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/pakistanifoodthumbnail.jpg" alt="Pakistani Food Thumbnail" >
+      <div class="caption">
+        <h3>Pakistani Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="pakistani" value="Order Now"/>
+          </form>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/spanishfoodthumbnail.jpg" alt="Spanish Food Thumbnail">
+      <div class="caption">
+        <h3>Spanish Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="spanish" value="Order Now"/>
+          </form>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/thaifoodthumbnail.jpg" alt="Thai Food THumbnail">
+      <div class="caption">
+        <h3>Thai Food</h3>
+        <p>...</p>
+        <form method="post" action="cart.php">
+            <input type="submit" class="btn btn-primary" name="thai" value="Order Now"/>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    
+</div>
 
   
 

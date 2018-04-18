@@ -58,7 +58,7 @@ if (isset($_POST['updateprofile'])) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinecone</a>
+      <a class="navbar-brand" href="#">Pinocone</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,10 +66,10 @@ if (isset($_POST['updateprofile'])) {
       <ul class="nav navbar-nav navbar-right">
 			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
 			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
-				<li><a href="#">Categories</a></li>
+				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
           
@@ -89,7 +89,7 @@ if (isset($_POST['updateprofile'])) {
 			  </ul>
 			</li>
           
-			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
