@@ -1,3 +1,4 @@
+<?php require 'server.php'; session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,16 +33,29 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 			<li><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
-			<li class="dropdown">
+			<li class="active dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
 				<li class="active"><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
-			<li><a href="editpro.php">My Account</a></li>
+			<li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
+					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($count = $result->num_rows) {
+						while ($row = $result->fetch_object()){
+							echo $row->username;
+						}
+					}
+					}
+				?> <span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+				<li><a href="editpro.php">Edit Profile</a></li>
+			  </ul>
+			</li>
 			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="login.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

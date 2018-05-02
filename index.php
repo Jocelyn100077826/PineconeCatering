@@ -30,7 +30,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li><a href="index.php">Home</a></li>
+			<li class="active"><a href="index.php">Home</a></li>
+            <?php
+                $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+                $result = mysqli_query($con, $check);
+                $row = mysqli_fetch_row($result);
+                if($row[6] == '0')
+                {
+            ?>
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
@@ -38,9 +45,29 @@
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
-			<li class="active"><a href="modfood.php">Edit food</a></li>
+          <li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
+					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($count = $result->num_rows) {
+						while ($row = $result->fetch_object()){
+							echo $row->username;
+						}
+					}
+					}
+				?> <span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+				<li><a href="editpro.php">Edit Profile</a></li>
+			  </ul>
+			</li>
+            <?php
+                } else {
+            ?>
+			     <li><a href="modfood.php">Edit food</a></li>
+            <?php
+            }
+            ?>
 			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -1,6 +1,7 @@
 <?php
+    session_start();
     // connect to the database
-    $con = mysqli_connect('localhost', 'root', '', 'registration');
+    $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 	$errors = array();
 	
 	if (isset($_POST['register'])) {
@@ -38,7 +39,8 @@
 		// Save to database if no errors
 		if (count($errors) == 0) {
 			$sql = $con->query("INSERT INTO users (firstname, lastname, email, username, password) VALUES('{$fname}', '{$lname}', '{$email}', '{$username}', '{$password}')");
-			header('Location: login.php');
+            echo "<script>alert('Register Successfully'); location = 'login.php';</script>";
+			
 		}	
 	}
 
@@ -69,8 +71,13 @@ if (isset($_POST['login'])) {
 			
 			session_start();
 			$_SESSION['username'] = $username;
-			
-			header('Location: index.php');
+            $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+            $result = mysqli_query($con, $check);
+            $row = mysqli_fetch_row($result);
+            if($row[6] == '0')
+			    echo "<script>alert('WELCOME USER'); location = 'index.php';</script>";
+            else if($row[6] == '1')
+                echo "<script>alert('WELCOME ADMIN'); location = 'index.php';</script>";
 		}
 	}
 

@@ -17,10 +17,10 @@ if (isset($_POST['updateprofile'])) {
 		}
     
     if($password == $conpassword){
-        $update = "UPDATE users SET  firstname = '$fname', lastname = '$lname', email = '$email' , username = '$username' , password = '$password' WHERE id = 2";
+        $update = "UPDATE users SET  firstname = '$fname', lastname = '$lname', email = '$email' , username = '$username' , password = '$password' WHERE id = 1";
 	   $result = mysqli_query($con, $update);
 	   if ($result) {
-           header('Location: editpro.php');
+           echo "<script>alert('Profile updated successfully'); location = 'index.php';</script>";
 	   }
     }
 }
@@ -64,7 +64,7 @@ if (isset($_POST['updateprofile'])) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
+			<li><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
@@ -73,9 +73,9 @@ if (isset($_POST['updateprofile'])) {
 			  </ul>
 			</li>
           
-			<li class="dropdown">
+			<li class="active dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 2")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -85,12 +85,12 @@ if (isset($_POST['updateprofile'])) {
 				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
-				<li><a href="login.php" <?php session_destroy(); ?>>Logout</a></li>
+				
 			  </ul>
 			</li>
           
 			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="login.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -99,15 +99,6 @@ if (isset($_POST['updateprofile'])) {
     <h1 style="margin:100px;">Edit Profile</h1>
   	<hr>
 	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          
-          <input type="file" class="form-control">
-        </div>
-      </div>
       
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
@@ -125,7 +116,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="firstname" value="<?php
-				if($result = $con->query("SELECT firstname FROM users WHERE id = 2")) {
+				if($result = $con->query("SELECT firstname FROM users WHERE id = 1")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->firstname;
@@ -139,7 +130,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="lastname" value="<?php
-				if($result = $con->query("SELECT lastname FROM users WHERE id = 2")) {
+				if($result = $con->query("SELECT lastname FROM users WHERE id = 1")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->lastname;
@@ -154,7 +145,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="email" value="<?php
-				if($result = $con->query("SELECT email FROM users WHERE id = 2")) {
+				if($result = $con->query("SELECT email FROM users WHERE id = 1")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->email;
@@ -169,7 +160,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-md-3 control-label">Username:</label>
             <div class="col-md-8">
               <input class="form-control" type="text" name="username" value="<?php
-				if($result = $con->query("SELECT username FROM users WHERE id = 2")) {
+				if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->username;
@@ -183,8 +174,8 @@ if (isset($_POST['updateprofile'])) {
           <div class="form-group">
             <label class="col-md-3 control-label">Password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" name="password" value="<?php
-				if($result = $con->query("SELECT password FROM users WHERE id = 2")) {
+              <input class="form-control" type="password" name="password" required value="<?php
+				if($result = $con->query("SELECT password FROM users WHERE id = 1")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->password;
@@ -198,7 +189,7 @@ if (isset($_POST['updateprofile'])) {
           <div class="form-group">
             <label class="col-md-3 control-label">Confirm password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" name="conpassword">
+              <input class="form-control" type="password" name="conpassword" required>
                 <?php require 'errors.php'; ?>
             </div>
           </div>
@@ -206,7 +197,7 @@ if (isset($_POST['updateprofile'])) {
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="submit" class="btn btn-primary" value="Save Changes" name="updateprofile">
+              <input type="submit" class="btn btn-primary" value="Save Changes" name="updateprofile" id="updateprofile">
               <span></span>
               <input type="button" id="reset" class="btn btn-default" value="Cancel">
             </div>

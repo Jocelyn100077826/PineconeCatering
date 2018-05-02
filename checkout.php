@@ -80,7 +80,7 @@ if(filter_input(INPUT_GET, 'action') == 'delete')
 
 if (isset($_POST['confirm'])) {
 $items= $_POST['items'];
-$db = mysqli_connect("localhost","root","","cart");
+$db = mysqli_connect("localhost","root","12345678","pinocone");
 $mysql =  "INSERT INTO orders (items) VALUES ('$items')";
 mysqli_query($db, $mysql);
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 $product_ids = array();
 
 /*session_destroy();*/
@@ -123,7 +123,14 @@ function pre_r($array)
     <!-- Collect the nav links, forms, and other content for toggling -->
    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
+			<li class="active"><a href="index.php">Home</a></li>
+            <?php
+                $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+                $result = mysqli_query($con, $check);
+                $row = mysqli_fetch_row($result);
+                if($row[6] == '0')
+                {
+            ?>
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
@@ -131,16 +138,29 @@ function pre_r($array)
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
-          
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> My Account <span class="caret"></span></a>
+          <li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
+					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($count = $result->num_rows) {
+						while ($row = $result->fetch_object()){
+							echo $row->username;
+						}
+					}
+					}
+				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
 			  </ul>
 			</li>
-          
-			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" onclick="openNav()" aria-hidden="true"></span></a></li>
-			<li><a href="login.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+            <?php
+                } else {
+            ?>
+			     <li><a href="modfood.php">Edit food</a></li>
+            <?php
+            }
+            ?>
+			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -150,7 +170,7 @@ function pre_r($array)
     
 <?php
 
-$connect = mysqli_connect('localhost', 'root', '', 'cart');
+$connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
        
 $current = '';
 
@@ -191,7 +211,42 @@ if (isset($_POST['thai'])) {
 }
        
 ?>
-<form method="post" action="cart.php">
+       
+        <ol class="breadcrumb">
+      
+            <form method="post" action="cart.php">
+        <li>
+            
+        <div class= "row">
+        
+      
+        <div class="col-xs-2">
+            <input type="submit" class="btn btn-primary" name="chinese" value="Chinese"/>
+        </div> 
+      
+    
+        <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="english" value="Western"/>
+        </div>  
+             <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="indian" value="Indian"/>
+    </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="pakistani" value="Pakistani"/>
+    </div>
+    <div class="col-xs-2">
+			<input type="submit" class="btn btn-primary" name="spanish" value="Spanish"/>
+    </div>
+			<input type="submit" class="btn btn-primary" name="thai" value="Thai"/>
+
+    </div>
+            </li>
+</form> 
+       
+      
+    </ol>
+       
+<!--<form method="post" action="cart.php">
 <div class= "row">
     <div class="col-xs-2">
             <input type="submit" class="btn btn-primary" name="chinese" value="Chinese"/>
@@ -210,7 +265,7 @@ if (isset($_POST['thai'])) {
     </div>
 			<input type="submit" class="btn btn-primary" name="thai" value="Thai"/>
 </div>
-</form>
+</form> -->
 <br/>
 <?php
 

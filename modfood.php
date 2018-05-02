@@ -1,5 +1,7 @@
 <?php
-$update = false;
+        session_start();
+        $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+        $update = false;
 
     //if upload button is pressed
     if (isset($_POST['upload'])){
@@ -113,16 +115,29 @@ if (isset($_POST['edit'])) {
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 			<li><a href="index.php">Home</a></li>
+			 <?php
+                $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+                $result = mysqli_query($con, $check);
+                $row = mysqli_fetch_row($result);
+                if($row[6] == '0')
+                {
+            ?>
 			<li class="dropdown">
-			  <a href="modfood.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="#">Sets</a></li>
-				<li><a href="modfood.php">Categories</a></li>
+				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
-			<li class="active"><a href="modfood.php">Edit food</a></li>
+            <?php
+                } else {
+            ?>
+			     <li><a href="modfood.php">Edit food</a></li>
+            <?php
+            }
+            ?>
 			<li><a href="modfood.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -208,7 +223,7 @@ if (isset($_POST['edit'])) {
         </tr>
         
             <?php
-                    $db = mysqli_connect("localhost","root","","cart");
+                    $db = mysqli_connect("localhost","root","12345678","pinocone");
                     $sql = "SELECT * FROM products";
                     $result = mysqli_query($db, $sql);
                     while ($row = mysqli_fetch_array($result)){

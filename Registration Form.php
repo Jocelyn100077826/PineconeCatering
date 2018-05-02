@@ -73,6 +73,7 @@
 				    
                     <?php require 'errors.php'; ?>
                     
+                    
                     <div class="form-group">
 						<label for="firstname">First Name: </label>
 						<input type="text" name="firstname" id="fname" class="form-control" value="<?php if (isset($_POST["firstname"])) echo $_POST["firstname"]; ?>">
@@ -107,8 +108,6 @@
 					<div class="form-group">
 						<label for="password">Confirm Password: </label>
                         <input type="password" name="conpassword" class="form-control" maxlength="12">
-                        <?php require 'errors.php'; ?>
-                        
                         <span id="error_password_confirm"></span>
 					</div>
 
