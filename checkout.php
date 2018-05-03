@@ -1,5 +1,6 @@
 <?php
 session_start();
+$con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 
 $orderstring = ""; 
 $quantity = 0;
@@ -80,9 +81,14 @@ if(filter_input(INPUT_GET, 'action') == 'delete')
 
 if (isset($_POST['confirm'])) {
 $items= $_POST['items'];
+$quantity = $_POST['quantity'];
+$total= $_POST['total'];
+$price = $_POST['price'];
 $db = mysqli_connect("localhost","root","12345678","pinocone");
-$mysql =  "INSERT INTO orders (items) VALUES ('$items')";
+date_default_timezone_set('Asia/Kuala_Lumpur');
+$mysql = "INSERT INTO `orders`(`username`, `product name`, `quantity`, `total`, `unitprice`, `date`) VALUES ('".$_SESSION['username']."', '$items','$quantity','$total','$price','".date("Y-m-d H:i:s")."')";
 mysqli_query($db, $mysql);
+echo '<script>location= "success.php";</script>';
 }
 
 /* this will show how is the array working for storing food products */
@@ -113,14 +119,16 @@ function pre_r($array)
     elements and media queries -->
    <link href="styles/style.css" rel="stylesheet" />
     
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
 </head>
 
 <body>
- <nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid p-3 mb-2 bg-dark text-dark">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -131,12 +139,19 @@ function pre_r($array)
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">Pinocone</a>
-    </div> 
+    </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
+			<li class="active"><a href="index.php">Home</a></li>
+            <?php
+                $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
+                $result = mysqli_query($con, $check);
+                $row = mysqli_fetch_row($result);
+                if($row[6] == '0')
+                {
+            ?>
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
@@ -144,16 +159,30 @@ function pre_r($array)
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
-          
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> My Account <span class="caret"></span></a>
+          <li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
+					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($count = $result->num_rows) {
+						while ($row = $result->fetch_object()){
+							echo $row->username;
+						}
+					}
+					}
+				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
+                <li><a href="orderhistory.php">Order Details</a></li>
 			  </ul>
 			</li>
-          
+            <?php
+                } else {
+            ?>
+			     <li><a href="modfood.php">Edit food</a></li>
+            <?php
+            }
+            ?>
 			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			<li><a href="login.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -257,8 +286,9 @@ function pre_r($array)
                
                <?php
                     /* grand total function code */
-                    $orderstring .= $product['name'] . " " . $product['quantity'] . ",";
-               
+                    $itemname .= $product['name'] . ",";
+                    $quantity .= $product['quantity'] . ",";
+                    $unitprice .= $product['price'] . ",";
                     $total = $total + ($product['quantity'] * $product['price']);
                     endforeach;
                
@@ -279,8 +309,11 @@ function pre_r($array)
                             if(count($_SESSION['shopping_cart']) > 0):
                        ?>
                        <form method="post" action="checkout.php">
-                        <input type="hidden" name="items" value="<?php echo $orderstring; ?>"/>
-                        <input type="submit" name="confirm" value="Confirm Check Out"/>
+                        <input type="hidden" name="items" value="<?php echo $itemname; ?>"/>
+                        <input type="hidden" name="quantity" value="<?php echo $quantity; ?>"/>
+                        <input type="hidden" name="total" value="<?php echo number_format($total, 2); ?>"/>
+                        <input type="hidden" name="price" value="<?php echo $unitprice; ?>"/>
+                        <input type="submit" name="confirm" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" value="Confirm Check Out"/>                       
                         </form>
                        <?php endif; endif; ?>
                     </td>
@@ -294,10 +327,6 @@ function pre_r($array)
            
        </div>
        
-    
-    
-    
-    
 <div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>

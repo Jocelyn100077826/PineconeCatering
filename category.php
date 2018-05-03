@@ -52,6 +52,7 @@
 				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
+                <li><a href="orderhistory.php">Order Details</a></li>
 			  </ul>
 			</li>
 			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>

@@ -117,7 +117,7 @@ function pre_r($array)
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinecone</a>
+      <a class="navbar-brand" href="index.php">Pinecone</a>
     </div> 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -150,6 +150,7 @@ function pre_r($array)
 				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 				<li><a href="editpro.php">Edit Profile</a></li>
+                <li><a href="orderhistory.php">Order Details</a></li>
 			  </ul>
 			</li>
             <?php
@@ -284,7 +285,7 @@ if (isset($_POST['thai'])) {
                    echo"<p>".$product['desp']."</p>";
                    echo"<p>".$product['category']."</p>";
                     echo"<h4>RM".$product['price']."</h4>";
-                    echo "<input type='text' name='quantity' class='form-control' value='1' />";
+                    echo "<input type='text' name='quantity' class='form-control' required />";
                     echo "<input type='hidden' name='name' value='".$product['name']."' />";
                    echo "<input type='hidden' name='desp' value='".$product['desp']."' />";
                     echo "<input type='hidden' name='price' value='".$product['price']."' />";

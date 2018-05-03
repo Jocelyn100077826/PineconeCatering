@@ -132,7 +132,7 @@ if (isset($_POST['edit'])) {
             <?php
                 } else {
             ?>
-			     <li><a href="modfood.php">Edit food</a></li>
+			     <li class="active"><a href="modfood.php">Edit food</a></li>
             <?php
             }
             ?>

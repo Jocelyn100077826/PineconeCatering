@@ -28,13 +28,13 @@
                     
                       <div class="form-group">
 						<label for="username">User Name: </label>
-						<input type="text" name="username" id="uname" class="form-control" value="<?php if (isset($_POST["username"])) echo $_POST["name"]; ?>">
+						<input type="text" name="username" id="uname" class="form-control" required value="<?php if (isset($_POST["username"])) echo $_POST["name"]; ?>">
 						<span id="error_uname" class="text-danger"></span>
 					</div>
                     
 					<div class="form-group">
 						<label for="password">Password: </label>
-                        <input type="password" name="password" class="form-control" maxlength="12">
+                        <input type="password" name="password" class="form-control" maxlength="12" required>
                         <?php require 'errors.php'; ?><br>
                         <span id="error_password"></span>
 					</div>

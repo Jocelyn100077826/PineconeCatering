@@ -84,8 +84,8 @@ if (isset($_POST['updateprofile'])) {
 					}
 				?> <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-				<li><a href="editpro.php">Edit Profile</a></li>
-				
+				<li class="active"><a href="editpro.php">Edit Profile</a></li>
+				<li><a href="orderhistory.php">Order Details</a></li>
 			  </ul>
 			</li>
           
@@ -96,18 +96,14 @@ if (isset($_POST['updateprofile'])) {
   </div><!-- /.container-fluid -->
 </nav>
         
-    <h1 style="margin:100px;">Edit Profile</h1>
+    <h1 style="margin:100px;" class="text-center">Edit Profile</h1>
+        
   	<hr>
 	<div class="row">
       
-      <!-- edit form column -->
+      <!-- edit form column --> 
       <div class="col-md-9 personal-info">
           
-        <!--<div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
-          <i class="fa fa-coffee"></i>
-          This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>-->
           
         <h3>Personal info</h3>
         
@@ -206,6 +202,7 @@ if (isset($_POST['updateprofile'])) {
       </div>
   </div>
 </div>
+
 <hr>
     
     <div class="footer">

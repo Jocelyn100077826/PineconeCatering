@@ -76,38 +76,38 @@
                     
                     <div class="form-group">
 						<label for="firstname">First Name: </label>
-						<input type="text" name="firstname" id="fname" class="form-control" value="<?php if (isset($_POST["firstname"])) echo $_POST["firstname"]; ?>">
+						<input type="text" name="firstname" id="fname" class="form-control" required value="<?php if (isset($_POST["firstname"])) echo $_POST["firstname"]; ?>">
 						<span id="error_fname" class="text-danger"></span>
 					</div>
                     
                     <div class="form-group">
 						<label for="lastname">last Name: </label>
-						<input type="text" name="lastname" id="lname" class="form-control" value="<?php if (isset($_POST["lastname"])) echo $_POST["lastname"]; ?>">
+						<input type="text" name="lastname" id="lname" class="form-control" required value="<?php if (isset($_POST["lastname"])) echo $_POST["lastname"]; ?>">
 						<span id="error_lname" class="text-danger"></span>
 					</div>
                     
                      <div class="form-group">
 						<label for="email">Email: </label>
-						<input type="email" name="email" id="email" class="form-control" value="<?php if (isset($_POST["email"])) echo $_POST["email"]; ?>">
+						<input type="email" name="email" id="email" class="form-control" required value="<?php if (isset($_POST["email"])) echo $_POST["email"]; ?>">
 						<span id="error_email" class="text-danger"></span>
 					</div>
                     
                       <div class="form-group">
 						<label for="username">User Name: </label>
-						<input type="text" name="username" id="uname" class="form-control" value="<?php if (isset($_POST["username"])) echo $_POST["username"]; ?>">
+						<input type="text" name="username" id="uname" class="form-control" required value="<?php if (isset($_POST["username"])) echo $_POST["username"]; ?>">
 						<span id="error_uname" class="text-danger"></span>
 					</div>
                     
                     <div class="form-group">
 						<label for="password">Password: </label>
-                        <input type="password" name="password" class="form-control" maxlength="12" value="<?php if (isset($_POST["password"])) echo $_POST["password"]; ?>">
+                        <input type="password" name="password" class="form-control" maxlength="12" required value="<?php if (isset($_POST["password"])) echo $_POST["password"]; ?>">
                         <span id="error_password"></span>
 					</div>
                     
                     
 					<div class="form-group">
 						<label for="password">Confirm Password: </label>
-                        <input type="password" name="conpassword" class="form-control" maxlength="12">
+                        <input type="password" name="conpassword" class="form-control" maxlength="12" required>
                         <span id="error_password_confirm"></span>
 					</div>
 
