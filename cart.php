@@ -1,6 +1,6 @@
 <?php
 session_start();
- $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+ $con = mysqli_connect('localhost', 'root', '', 'pinocone');
 $product_ids = array();
 
 /*session_destroy();*/
@@ -134,7 +134,7 @@ function pre_r($array)
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-				<li><a href="#">Sets</a></li>
+				<li><a href="set.php">Sets</a></li>
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
@@ -157,10 +157,11 @@ function pre_r($array)
                 } else {
             ?>
 			     <li><a href="modfood.php">Edit food</a></li>
+                <li><a href="custom.php">Edit Sets</a></li>
             <?php
             }
             ?>
-			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" onclick="openNav()"></span></a></li>
 			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -171,7 +172,7 @@ function pre_r($array)
     
 <?php
 
-$connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+$connect = mysqli_connect('localhost', 'root', '', 'pinocone');
        
 $current = '';
 
@@ -283,7 +284,7 @@ if (isset($_POST['thai'])) {
                    echo "<img src='images/".$product['image']."' class='img-responsive' style='min-height:200px;height:200px;'/>";
                     echo "<h4 class='text-info'>". $product['name']."</h4>";
                    echo"<p>".$product['desp']."</p>";
-                   echo"<p>".$product['category']."</p>";
+//                   echo"<p>".$product['category']."</p>";
                     echo"<h4>RM".$product['price']."</h4>";
                     echo "<input type='text' name='quantity' class='form-control' required />";
                     echo "<input type='hidden' name='name' value='".$product['name']."' />";

@@ -1,7 +1,7 @@
 <?php
     session_start();
     // connect to the database
-    $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+    $con = mysqli_connect('localhost', 'root', '', 'pinocone');
 	$errors = array();
 	
 	if (isset($_POST['register'])) {

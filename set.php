@@ -1,6 +1,6 @@
 <?php
 require 'server.php';
-//session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,75 +78,63 @@ require 'server.php';
   </div><!-- /.container-fluid -->
 </nav>
 
-<!--START OF CAROUSEL-->
-
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="images/food3.jpg" alt="first">
-		<div class="carousel-caption">
-			<h2>Meat Lovers' Special</h2>
-			<p>Check out this month's special deal!</p>
-			<br/>
-			<br/>
-			<br/>
-      </div>
-      </div>
     
-      <div class="item">
-        <img src="images/foody.jpg" alt="second" >
-		<div class="carousel-caption">
-			<h2>Kids Meals</h2>
-			<p>Coming soon!</p>
-			<br/>
-			<br/>
-			<br/>
-      </div>
-      </div>
-    
-      <div class="item">
-        <img src="images/food1.jpg" alt="third">
-		<div class="carousel-caption">
-			<h2>Vegetarian Options</h2>
-			<p>Come try our natural selections!</p>
-			<br>
-			<br>
-			<br>
-      </div>
-      </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-
-
-<!--END OF CAROUSEL-->
-
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 <div class="container">
-<div class="row">
-	<div class="section1">
-		<div class="col-xs-6"><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span><h1>Natural</h1><p>Existing in or derived from nature; not made or caused by humankind.In accordance with the nature of, or circumstances surrounding, someone or something.</p></div>
-	</div>
-	<div class="section2">
-		<div class="col-xs-6"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span><h1>Quality</h1><p>The standard of something as measured against other things of a similar kind; the degree of excellence of something.</p></div>
-	</div>
-</div>
+    
+    <h1>Sets</h1>
+    <hr/>
+    
+    <form method="post" action="checkout.php">
+    <?php
+        $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+
+        $query = "SELECT * FROM custom ORDER by custom_id";
+        $result = mysqli_query($connect, $query);
+    
+    
+    
+    if($result):
+        if(mysqli_num_rows($result) > 0):
+       
+            while($set = mysqli_fetch_assoc($result)):
+            /*print_r($product);*/
+            $array= (explode(', ',$set['fooditems']));
+                    
+                    echo "<div class='cust'>";
+    
+                    echo "<h3>".$set['custom_name']."</h3>";
+                    echo "<ul>";
+                    
+                    foreach($array as $arr){
+                        $q = "SELECT * FROM products WHERE id =".$arr;
+                        $r = mysqli_query($connect, $q);
+                        while($check = mysqli_fetch_assoc($r)):
+                            
+                            echo "<li>".$check['name']."</li>";
+                        
+                        endwhile;  
+                    }
+                    echo"</ul>";
+                    echo "<h2> RM ".$set['menu_price']."</h2>";
+    
+                    echo "<input type='hidden' value='".$set['custom_id']."' name='id'/>";
+                    echo "<input type='submit' value='Buy Now' name='buynow' class='btn btn-primary btn-block'/>";
+                    echo "</div>";
+    
+    
+            endwhile;
+        endif;
+    endif;
+    ?>
+    
+    <br/>
+    <br/>
+    </form>
+    
 </div>
 
  <div class="footer">

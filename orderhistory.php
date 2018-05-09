@@ -41,7 +41,7 @@
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-				<li><a href="#">Sets</a></li>
+				<li><a href="set.php">Sets</a></li>
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
@@ -64,6 +64,7 @@
                 } else {
             ?>
 			     <li><a href="modfood.php">Edit food</a></li>
+                <li><a href="custom.php">Edit Sets</a></li>
             <?php
             }
             ?>
@@ -80,7 +81,7 @@
             <table class="table">
                <tr><th colspan="5"><h3>Order Details</h3></th></tr>
     <?php
-        $db = mysqli_connect("localhost","root","12345678","pinocone");
+        $db = mysqli_connect("localhost","root","","pinocone");
         $sql = "SELECT * FROM orders WHERE username = '".$_SESSION['username']."'";
         $result = mysqli_query($db, $sql);
         $count = 0;

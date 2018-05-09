@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+$con = mysqli_connect('localhost', 'root', '', 'pinocone');
 
 $orderstring = ""; 
 $quantity = 0;

@@ -41,7 +41,7 @@
 			<li class="dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-				<li><a href="#">Sets</a></li>
+				<li><a href="set.php">Sets</a></li>
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
@@ -64,6 +64,7 @@
                 } else {
             ?>
 			     <li><a href="modfood.php">Edit food</a></li>
+                <li><a href="custom.php">Edit Sets</a></li>
             <?php
             }
             ?>

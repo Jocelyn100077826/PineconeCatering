@@ -1,6 +1,36 @@
 <?php
-require 'server.php';
-//session_start();
+    require 'server.php'; 
+//    session_start();
+
+
+    if (isset($_POST['submitMenu'])) {
+        
+        
+//                    /* grand total function code */
+//                    $menustring .= $product['name'] . " " . $product['quantity'] . ",";
+//               
+//                    $total = $total + ($product['quantity'] * $product['price']);
+//                    endforeach;
+//               
+             
+        $items = "";
+        
+
+        foreach($_POST['set'] as $set){
+            $items .= $set. ", ";
+        }
+        
+        $items = substr($items, 0, -2);
+        
+//        $items= $_POST['set'];
+        $name= $_POST['name'];
+        $price= $_POST['price'];
+        
+        $db = mysqli_connect("localhost","root","","pinocone");
+        
+        $mysql = "INSERT INTO `custom`(`custom_name`, `fooditems`, `menu_price`) VALUES ('$name', '$items','$price')";
+        mysqli_query($db, $mysql);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,78 +107,64 @@ require 'server.php';
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-<!--START OF CAROUSEL-->
-
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="images/food3.jpg" alt="first">
-		<div class="carousel-caption">
-			<h2>Meat Lovers' Special</h2>
-			<p>Check out this month's special deal!</p>
-			<br/>
-			<br/>
-			<br/>
-      </div>
-      </div>
-    
-      <div class="item">
-        <img src="images/foody.jpg" alt="second" >
-		<div class="carousel-caption">
-			<h2>Kids Meals</h2>
-			<p>Coming soon!</p>
-			<br/>
-			<br/>
-			<br/>
-      </div>
-      </div>
-    
-      <div class="item">
-        <img src="images/food1.jpg" alt="third">
-		<div class="carousel-caption">
-			<h2>Vegetarian Options</h2>
-			<p>Come try our natural selections!</p>
-			<br>
-			<br>
-			<br>
-      </div>
-      </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-
-
-<!--END OF CAROUSEL-->
-
+<?php
+        
+            $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+       
+            $query = "SELECT * FROM products ORDER by id";
+            $result = mysqli_query($connect, $query);
+        
+?>
 <div class="container">
-<div class="row">
-	<div class="section1">
-		<div class="col-xs-6"><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span><h1>Natural</h1><p>Existing in or derived from nature; not made or caused by humankind.In accordance with the nature of, or circumstances surrounding, someone or something.</p></div>
-	</div>
-	<div class="section2">
-		<div class="col-xs-6"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span><h1>Quality</h1><p>The standard of something as measured against other things of a similar kind; the degree of excellence of something.</p></div>
-	</div>
-</div>
-</div>
+    <br/>
+    <br/>
+    <br/>
+    <form method="post" action="custom.php">
+        
+    <h3>Name of custom menu: <input class="form-control input-sm" id="inputsm" type="text" name="name"/></h3>
+    
+    <h4>Price: <input class="form-control" id="inputdefault" type="number" name="price"/></h4>
 
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Food ID</th>
+            <th>Food Name</th>
+            <th>Food Description</th>
+            <th>Food Price</th>
+        </tr>
+        
+        
+        
+        <?php
+         if($result):
+        if(mysqli_num_rows($result) > 0):
+       
+            while($food = mysqli_fetch_assoc($result)):
+            /*print_r($product);*/
+                echo "<tr>";
+                echo "<td><input type='checkbox' name='set[]' value='".$food['id']."'/></td>";
+                echo "<td>".$food['id']."</td>";
+                echo "<td>".$food['name']."</td>";
+                echo "<td>".$food['desp']."</td>";
+                echo "<td> RM ".$food['price']."</td>";
+                echo "</tr>";
+            endwhile;
+        endif;
+    endif;
+?>
+        </table>
+        
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" name="submitMenu"/>
+    </form>
+</div>
+    
+    
+    <br/>
+    <br/>
+    <br/>
+    
+    
  <div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>
