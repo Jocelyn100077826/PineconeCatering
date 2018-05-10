@@ -140,7 +140,7 @@ function pre_r($array)
 			</li>
           <li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -169,6 +169,8 @@ function pre_r($array)
 </nav> 
     
    <div  style="margin:100px;" class="container"> 
+       
+       
     
 <?php
 
@@ -283,9 +285,9 @@ if (isset($_POST['thai'])) {
                    echo "<div class='products' style='min-height:500px;height:500px;'>";
                    echo "<img src='images/".$product['image']."' class='img-responsive' style='min-height:200px;height:200px;'/>";
                     echo "<h4 class='text-info'>". $product['name']."</h4>";
-                   echo"<p>".$product['desp']."</p>";
+                    echo"<p>".$product['desp']."</p>";
 //                   echo"<p>".$product['category']."</p>";
-                    echo"<h4>RM".$product['price']."</h4>";
+                    echo"<h4>RM".$product['price']." (per person/serving)</h4>";
                     echo "<input type='text' name='quantity' class='form-control' required />";
                     echo "<input type='hidden' name='name' value='".$product['name']."' />";
                    echo "<input type='hidden' name='desp' value='".$product['desp']."' />";
@@ -334,7 +336,7 @@ if (isset($_POST['thai'])) {
                    <td>
                     <a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
                         
-                        <div class="btn-danger" onclick="openNav()"> Remove </div>
+                        <div class="btn btn-danger btn-md"  onclick="openNav()" > Remove </div>
                     </a>   
                    </td>
                </tr>
@@ -374,6 +376,13 @@ if (isset($_POST['thai'])) {
        </div>
        
     </div>
+</div> 
+      
+<div class="footer ">
+	<h3>Contact Information</h3>
+	<p>Steven : 010-8328234</p>
+	<p>Alberto : 019-43942934</p>
+	<p>Malibu : 013-24567892</p>
 </div> 
       
       <!--FOR SIDE CART-->
