@@ -1,4 +1,6 @@
-<?php require 'server.php'; session_start(); ?>
+<?php require 'server.php';
+//session_start();
+?>
 
 <?php
 
@@ -17,7 +19,7 @@ if (isset($_POST['updateprofile'])) {
 		}
     
     if($password == $conpassword){
-        $update = "UPDATE users SET  firstname = '$fname', lastname = '$lname', email = '$email' , username = '$username' , password = '$password' WHERE id = 1";
+        $update = "UPDATE users SET  firstname = '$fname', lastname = '$lname', email = '$email' , username = '$username' , password = '$password' WHERE id = '".$_SESSION['id']."'";
 	   $result = mysqli_query($con, $update);
 	   if ($result) {
            echo "<script>alert('Profile updated successfully'); location = 'index.php';</script>";
@@ -75,7 +77,7 @@ if (isset($_POST['updateprofile'])) {
           
 			<li class="active dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -112,7 +114,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="firstname" value="<?php
-				if($result = $con->query("SELECT firstname FROM users WHERE id = 1")) {
+				if($result = $con->query("SELECT firstname FROM users WHERE id = '".$_SESSION['id']."'")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->firstname;
@@ -126,7 +128,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="lastname" value="<?php
-				if($result = $con->query("SELECT lastname FROM users WHERE id = 1")) {
+				if($result = $con->query("SELECT lastname FROM users WHERE id = '".$_SESSION['id']."'")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->lastname;
@@ -141,7 +143,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="email" value="<?php
-				if($result = $con->query("SELECT email FROM users WHERE id = 1")) {
+				if($result = $con->query("SELECT email FROM users WHERE id = '".$_SESSION['id']."'")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->email;
@@ -156,7 +158,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-md-3 control-label">Username:</label>
             <div class="col-md-8">
               <input class="form-control" type="text" name="username" value="<?php
-				if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+				if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->username;
@@ -171,7 +173,7 @@ if (isset($_POST['updateprofile'])) {
             <label class="col-md-3 control-label">Password:</label>
             <div class="col-md-8">
               <input class="form-control" type="password" name="password" required value="<?php
-				if($result = $con->query("SELECT password FROM users WHERE id = 1")) {
+				if($result = $con->query("SELECT password FROM users WHERE id = '".$_SESSION['id']."'")) {
 				if($count = $result->num_rows) {
 					while ($row = $result->fetch_object()){
 						echo $row->password;

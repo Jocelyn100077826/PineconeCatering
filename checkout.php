@@ -4,6 +4,8 @@ $con = mysqli_connect('localhost', 'root', '', 'pinocone');
 
 $orderstring = ""; 
 $quantity = 0;
+$itemname ="";
+$unitprice=0;
 
 $product_ids = array();
 
@@ -84,9 +86,15 @@ $items= $_POST['items'];
 $quantity = $_POST['quantity'];
 $total= $_POST['total'];
 $price = $_POST['price'];
-$db = mysqli_connect("localhost","root","12345678","pinocone");
+$deliD = $_POST['delidate'];
+$deliT= $_POST['delitime'];
+$comment= $_POST['comment'];
+    
+    
+    
+$db = mysqli_connect("localhost","root","","pinocone");
 date_default_timezone_set('Asia/Kuala_Lumpur');
-$mysql = "INSERT INTO `orders`(`username`, `product name`, `quantity`, `total`, `unitprice`, `date`) VALUES ('".$_SESSION['username']."', '$items','$quantity','$total','$price','".date("Y-m-d H:i:s")."')";
+$mysql = "INSERT INTO `orders`(`username`, `product name`, `quantity`, `total`, `unitprice`, `date`, `deli_date`, `deli_time`, `comment`) VALUES ('".$_SESSION['username']."', '$items','$quantity','$total','$price','".date("Y-m-d H:i:s")."','$deliD','$deliT','$comment')";
 mysqli_query($db, $mysql);
 echo '<script>location= "success.php";</script>';
 }
@@ -161,7 +169,7 @@ function pre_r($array)
 			</li>
           <li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -245,9 +253,10 @@ function pre_r($array)
             <br/>
             <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
         </div>
+        
     </div>
-</div>
 
+</div>
 <div style="clear:both"></div>
        <br />
        
@@ -308,13 +317,27 @@ function pre_r($array)
                             if(isset($_SESSION['shopping_cart'])):
                             if(count($_SESSION['shopping_cart']) > 0):
                        ?>
+                       <div class="col-xs-12 col-md-4">
                        <form method="post" action="checkout.php">
+                           
+                        
+            
+                            <h3>Delivery Details</h3>
+                           <hr/>
+                            <p>Delivery Date: <input type="date" name="delidate"/></p>
+                            <p>Delivery Time<input type="time" name="delitime"/></p>
+                            <p>Address: <textarea name="comment" rows="4" cols="50"></textarea></p>
+
+                        
+                           
                         <input type="hidden" name="items" value="<?php echo $itemname; ?>"/>
                         <input type="hidden" name="quantity" value="<?php echo $quantity; ?>"/>
                         <input type="hidden" name="total" value="<?php echo number_format($total, 2); ?>"/>
                         <input type="hidden" name="price" value="<?php echo $unitprice; ?>"/>
-                        <input type="submit" name="confirm" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" value="Confirm Check Out"/>                       
+                           <br/>
+                        <input type="submit" name="confirm" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" value="Confirm Check Out"/>                       
                         </form>
+                           </div>
                        <?php endif; endif; ?>
                     </td>
                </tr>
@@ -326,13 +349,14 @@ function pre_r($array)
            </table>
            
        </div>
+        
        
 <div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
-</div> 
+</div>  
 
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->

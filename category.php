@@ -1,4 +1,6 @@
-<?php require 'server.php'; session_start(); ?>
+<?php require 'server.php';
+//session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +44,7 @@
 			</li>
 			<li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -152,14 +154,12 @@
 
   
 
-
- <div class="footer">
+<div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
 </div> 
-
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="bootstrap/js/jquery.min.js"></script>
