@@ -1,6 +1,59 @@
 <?php
 require 'server.php';
 
+if(filter_input(INPUT_POST, 'buynow')){
+    if(isset($_SESSION['shopping_cart'])){
+        
+        /* Keep track how many products are in the shopping cart*/
+        $count = count($_SESSION['shopping_cart']);
+        
+        /* create sequential array for matching array keys to product ids */
+        $product_ids = array_column($_SESSION['shopping_cart'], 'id');
+        
+        if(!in_array(filter_input(INPUT_GET, 'id'), $product_ids))
+        {
+        
+            $_SESSION['shopping_cart'][$count] = array
+            (
+                'id' => filter_input(INPUT_GET, 'id'),
+                'name' => filter_input(INPUT_POST, 'name'),
+                'price' => filter_input(INPUT_POST, 'price'),
+                'quantity' => filter_input(INPUT_POST, 'quantity')
+            );
+            
+        }
+        
+        else
+        {
+            /* product already exists , increase quantity  */
+            /* math array key to id of the product being added to the cart  */
+            for($i=0; $i < count($product_ids); $i++)
+            {
+                if($product_ids[$i] == filter_input(INPUT_GET, 'id'))
+                {
+                    /* add item quantity to the existing product in the array */
+                    
+                    $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
+                }
+            }
+        }
+        
+        
+    }
+    else /* if shopping cart does not exist, create first product with array key 0 */
+    {
+        /* create array using submitted form data, start from key 0 and fill it with values  */
+        $_SESSION['shopping_cart'][0] = array
+        (
+            'id' => filter_input(INPUT_GET, 'id'),
+            'name' => filter_input(INPUT_POST, 'name'),
+            'price' => filter_input(INPUT_POST, 'price'),
+            'quantity' => filter_input(INPUT_POST, 'quantity')
+        );
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,11 +80,11 @@ require 'server.php';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
-    </div>
+      <a class="navbar-brand" href="index.php">Pinecone</a>
+    </div> 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 			<li class="active"><a href="index.php">Home</a></li>
             <?php
@@ -50,7 +103,7 @@ require 'server.php';
 			</li>
           <li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -71,12 +124,12 @@ require 'server.php';
             <?php
             }
             ?>
-			<li><a href="category.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" onclick="openNav()"></span></a></li>
 			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-</nav>
+</nav> 
 
     
     <br/>
@@ -88,7 +141,7 @@ require 'server.php';
     <h1>Sets</h1>
     <hr/>
     
-    <form method="post" action="checkout.php">
+    
     <?php
         $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
 
@@ -103,7 +156,7 @@ require 'server.php';
             while($set = mysqli_fetch_assoc($result)):
             /*print_r($product);*/
             $array= (explode(', ',$set['fooditems']));
-                    
+                    echo '<form method="post" action="set.php">';
                     echo "<div class='cust'>";
     
                     echo "<h3>".$set['custom_name']."</h3>";
@@ -122,9 +175,16 @@ require 'server.php';
                     echo "<h2> RM ".$set['menu_price']."</h2>";
     
                     echo "<input type='hidden' value='".$set['custom_id']."' name='id'/>";
+        
+                    echo "<input type='hidden' value='".$set['custom_name']."' name='name'/>";
+                    echo "<input type='hidden' value='".$set['menu_price']."' name='price'/>";
+                    echo "<input type='hidden' value='1' name='quantity'/>";
+        
+        
                     echo "<input type='submit' value='Buy Now' name='buynow' class='btn btn-primary btn-block'/>";
                     echo "</div>";
-    
+                    
+    echo '</form>';
     
             endwhile;
         endif;
@@ -133,10 +193,82 @@ require 'server.php';
     
     <br/>
     <br/>
-    </form>
+    
     
 </div>
-
+<div id="mySidenav" class="sidenav">
+      <a href="#" class="closebtn" onclick="closeNav()">x</a>
+       <div style="clear:both"></div>
+       <br />
+       
+       <div class="table-responsive">
+           <table class="table">
+               <tr><th colspan="5"><h3>Order Details</h3></th></tr>
+               
+               <tr>
+                   <th width="40%">Product Name</th>
+                   <th width="10%">Quantity</th>
+                   <th width="20%">Price</th>
+                   <th width="15%">Total</th>
+                   <th width="5%">Action</th>
+               </tr>
+               
+            <?php
+               if(!empty($_SESSION['shopping_cart'])):
+                    
+                    $total = 0;
+               
+               foreach($_SESSION['shopping_cart'] as $key => $product):
+            ?>
+               
+               <tr>
+                   <td><?php echo $product['name']; ?></td>
+                   <td><?php echo $product['quantity']; ?></td>
+                   <td><?php echo $product['price']; ?></td>
+                   <td><?php echo number_format($product['quantity'] * $product['price'], 2);  ?></td>
+                   <td>
+                    <a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
+                        
+                        <div class="btn btn-danger btn-md"  onclick="openNav()" > Remove </div>
+                    </a>   
+                   </td>
+               </tr>
+               
+               <?php
+                    /* grand total function code */
+                    $total = $total + ($product['quantity'] * $product['price']);
+                    endforeach;
+               ?>
+               
+               <tr>
+                   <td colspan="3" align="right">Total </td>
+                   <td align="right">RM <?php echo number_format($total, 2); ?></td>
+                   <td></td>
+               </tr>
+               
+               <tr>
+                   <!-- shows checkout button only if the shopping cart is not empty -->
+                   <td colspan="5">
+                       <?php
+                            if(isset($_SESSION['shopping_cart'])):
+                            if(count($_SESSION['shopping_cart']) > 0):
+                       ?>
+                       
+                        <a href="checkout.php" class="button"> Check Out</a>
+                       
+                       <?php endif; endif; ?>
+                    </td>
+               </tr>
+               
+               <?php
+                    endif;
+               ?>
+               
+           </table>
+           
+       </div>
+       
+    </div>
  <div class="footer">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>

@@ -28,7 +28,13 @@
                     
                       <div class="form-group">
 						<label for="username">User Name: </label>
-						<input type="text" name="username" id="uname" class="form-control" required value="<?php if (isset($_POST["username"])) echo $_POST["name"]; ?>">
+						<input type="text" name="username" id="uname" class="form-control" required/> 
+                          <?php
+                          
+//                          if (isset($_POST["username"])) echo $_POST["name"];
+                          
+                          ?>
+                          
 						<span id="error_uname" class="text-danger"></span>
 					</div>
                     
@@ -50,7 +56,7 @@
 	</div>
 </div>
   
-    <div class="footer">
+    <div class="footer navbar-fixed-bottom">
 	<h3>Contact Information</h3>
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>

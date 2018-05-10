@@ -1,13 +1,13 @@
 <?php
         session_start();
-        $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
+        $con = mysqli_connect('localhost', 'root', '', 'pinocone');
         $update = false;
 
     //if upload button is pressed
     if (isset($_POST['upload'])){
         //path to store uploaded image
         $target = "images/".basename($_FILES['image']['name']);
-        $db = mysqli_connect("localhost","root","","cart");
+        $db = mysqli_connect("localhost","root","","pinocone");
         //get all the submitted data from the form
         $name = $_POST['name'];
         $image =$_FILES['image']['name'];
@@ -29,7 +29,7 @@
 
 if (isset($_POST['del'])) {
     $id = $_POST['hidden'];
-    $db = mysqli_connect("localhost","root","","cart");
+    $db = mysqli_connect("localhost","root","","pinocone");
     $deleteitem=  "DELETE FROM products WHERE id='$id'";
 	mysqli_query($db,$deleteitem);
 }
@@ -37,7 +37,7 @@ if (isset($_POST['del'])) {
 if (isset($_POST['edit'])) {
     $id = $_POST['hidden'];
     $update = true;
-    $db = mysqli_connect("localhost","root","","cart");
+    $db = mysqli_connect("localhost","root","","pinocone");
     $sql = "SELECT * FROM products WHERE id='$id'";
     $result = mysqli_query($db, $sql);
     while ($row = mysqli_fetch_array($result)){
@@ -52,7 +52,7 @@ if (isset($_POST['edit'])) {
     if (isset($_POST['update'])){
         //path to store uploaded image
         $target = "images/".basename($_FILES['uimage']['name']);
-        $db = mysqli_connect("localhost","root","","cart");
+        $db = mysqli_connect("localhost","root","","pinocone");
         //get all the submitted data from the form
         $id = $_POST['idhidden'];
         $name = $_POST['uname'];
@@ -129,6 +129,7 @@ if (isset($_POST['edit'])) {
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
+                <li><a href="modfood.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
             <?php
                 } else {
             ?>
@@ -137,7 +138,7 @@ if (isset($_POST['edit'])) {
             <?php
             }
             ?>
-			<li><a href="modfood.php"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			
 			<li><a href="logout.php"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -224,7 +225,7 @@ if (isset($_POST['edit'])) {
         </tr>
         
             <?php
-                    $db = mysqli_connect("localhost","root","12345678","pinocone");
+                    $db = mysqli_connect("localhost","root","","pinocone");
                     $sql = "SELECT * FROM products";
                     $result = mysqli_query($db, $sql);
                     while ($row = mysqli_fetch_array($result)){

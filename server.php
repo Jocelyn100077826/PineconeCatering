@@ -58,8 +58,14 @@ if (isset($_POST['login'])) {
 		else {
 			$username = $_POST['username'];
 			$password = $_POST['password'];
+            $id =0;
 			
 			$result = $con->query("select * from users where username='$username' AND password='$password'");
+            
+            while ($row = mysqli_fetch_array($result)){
+                $id = $row['id'];
+            }
+            
 			$rows = mysqli_num_rows($result);
 			if ($rows == 0)
 				array_push($errors, "Invalid Username or Password");
@@ -71,6 +77,8 @@ if (isset($_POST['login'])) {
 			
 			session_start();
 			$_SESSION['username'] = $username;
+            $_SESSION['id'] = $id;
+            
             $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
             $result = mysqli_query($con, $check);
             $row = mysqli_fetch_row($result);

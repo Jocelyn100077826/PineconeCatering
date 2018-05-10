@@ -1,4 +1,17 @@
-<?php require 'server.php'; session_start();?>
+<?php require 'server.php'; 
+//session_start();
+
+$username="";
+
+$remove= 0;
+if (isset($_POST['del'])) {
+    $remove = $_POST['hidden'];
+    $db = mysqli_connect("localhost","root","","pinocone");
+    $deleteitem=  "DELETE FROM orders WHERE order_id='$remove'";
+	mysqli_query($db,$deleteitem);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +60,7 @@
 			</li>
           <li class="active dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -86,42 +99,65 @@
         $result = mysqli_query($db, $sql);
         $count = 0;
         while ($row = mysqli_fetch_array($result)){
+            $q = substr($row['quantity'], 1);
             $count++;
             $name = explode(",",$row['product name']);
-            $quantity = explode(",", $row['quantity']);
+            $quantity = explode(",", $q);
             $total = $row['total'];
             $unitprice = explode(",", $row['unitprice']);
-            $date = $row['date'];
+            $date = $row['deli_date'];
+            $id = $row['order_id'];
+            
             echo '<tr><th colspan="5"><h5><b>Order Number'.$count.'</b></h5></th></tr>';
+            
+            
             echo '
                <tr>
                    <th width="40%">Product Name</th>
                    <th width="10%">Quantity</th>
                    <th width="15%">Unit Price</th>
-                   <th width="20%">Total</th>
-                   <th width="5%">Date</th>
+                   <th width="15%">Total</th>
+                   <th width="10%">Delivery Date</th>
                </tr>';
             for($i=0;$i<count($name);$i++)
             {
                 if($i != count($name)-1)
                 {
                 echo '
+            <form method="post" action="orderhistory.php">
                 <tr>
                     <td>'.$name[$i].'</td>
                     <td>'.$quantity[$i].'</td>
                     <td>'.$unitprice[$i].'</td>
                     <td>'.$total.'</td>
                     <td>'.$date.'</td>
-                </tr>';
+                     
+       
+                </tr>
+                ';
                 }
             }
+            
+            echo '<tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="hidden" name="hidden" value="'.$id.'"/></td>
+                    <td><button type="submit" class="btn btn-info btn-md pull-right" name="del">Delete</button></td>
+                </tr>
+                
+                </form>';
         }
-    ?>
+
+                
+                
+                ?>
             </table>
         
+        <!-- Modal -->
+
+    
     </div>
-    
-    
     
     
 <div class="footer">

@@ -1,4 +1,6 @@
-<?php require 'server.php'; session_start();?>
+<?php require 'server.php'; 
+//session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +49,7 @@
 			</li>
           <li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -80,6 +82,8 @@
         <h1> Thank you! </h1>
         
         <p>Your order has been successfully executed, you can view your order history from the order page</p>
+        
+        <p>For any further complains, contact us at 011-31723895</p>
         
         <p><a class="btn btn-primary btn-lg" href="orderhistory.php" role="button">View Order</a></p>
     </div> 
