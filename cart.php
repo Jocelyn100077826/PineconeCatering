@@ -1,6 +1,6 @@
 <?php
 session_start();
- $con = mysqli_connect('localhost', 'root', '', 'pinocone');
+ $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 $product_ids = array();
 
 /*session_destroy();*/
@@ -117,7 +117,7 @@ function pre_r($array)
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php">Pinecone</a>
+      <a class="navbar-brand" href="index.php">Pinecone Catering</a>
     </div> 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -174,7 +174,7 @@ function pre_r($array)
     
 <?php
 
-$connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+$connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
        
 $current = '';
 
@@ -288,7 +288,7 @@ if (isset($_POST['thai'])) {
                     echo"<p>".$product['desp']."</p>";
 //                   echo"<p>".$product['category']."</p>";
                     echo"<h4>RM".$product['price']." (per person/serving)</h4>";
-                    echo "<input type='text' name='quantity' class='form-control' required />";
+                    echo "<input type='number' name='quantity' class='form-control' required placeholder='Enter Quantity' title='error' min= '1'/>";
                     echo "<input type='hidden' name='name' value='".$product['name']."' />";
                    echo "<input type='hidden' name='desp' value='".$product['desp']."' />";
                     echo "<input type='hidden' name='price' value='".$product['price']."' />";
@@ -383,6 +383,7 @@ if (isset($_POST['thai'])) {
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
       
       <!--FOR SIDE CART-->

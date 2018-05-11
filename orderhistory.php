@@ -6,7 +6,7 @@ $username="";
 $remove= 0;
 if (isset($_POST['del'])) {
     $remove = $_POST['hidden'];
-    $db = mysqli_connect("localhost","root","","pinocone");
+    $db = mysqli_connect("localhost","root","12345678","pinocone");
     $deleteitem=  "DELETE FROM orders WHERE order_id='$remove'";
 	mysqli_query($db,$deleteitem);
 }
@@ -37,7 +37,7 @@ if (isset($_POST['del'])) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
+      <a class="navbar-brand" href="index.php">Pinocone Catering</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -94,7 +94,7 @@ if (isset($_POST['del'])) {
             <table class="table">
                <tr><th colspan="5"><h3>Order Details</h3></th></tr>
     <?php
-        $db = mysqli_connect("localhost","root","","pinocone");
+        $db = mysqli_connect("localhost","root","12345678","pinocone");
         $sql = "SELECT * FROM orders WHERE username = '".$_SESSION['username']."'";
         $result = mysqli_query($db, $sql);
         $count = 0;
@@ -165,6 +165,7 @@ if (isset($_POST['del'])) {
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
         
         

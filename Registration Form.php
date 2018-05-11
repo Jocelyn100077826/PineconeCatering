@@ -90,6 +90,7 @@
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
   
             

@@ -23,7 +23,7 @@
         $name= $_POST['name'];
         $price= $_POST['price'];
         
-        $db = mysqli_connect("localhost","root","","pinocone");
+        $db = mysqli_connect("localhost","root","12345678","pinocone");
         
         $mysql = "INSERT INTO `custom`(`custom_name`, `fooditems`, `menu_price`) VALUES ('$name', '$items','$price')";
         mysqli_query($db, $mysql);
@@ -39,7 +39,7 @@ if (isset($_POST['editcustom'])) {
 }
 
    if (isset($_POST['update'])){
-        $db = mysqli_connect("localhost","root","","pinocone");
+        $db = mysqli_connect("localhost","root","12345678","pinocone");
        
         $uitems = "";
         
@@ -55,7 +55,7 @@ if (isset($_POST['editcustom'])) {
         $uprice= $_POST['price'];
        $id= $_POST['hidden_id'];
         
-        $db = mysqli_connect("localhost","root","","pinocone");
+        $db = mysqli_connect("localhost","root","12345678","pinocone");
         
         
         $mysql = "UPDATE custom SET custom_name='$uname', fooditems ='$uitems',menu_price='$uprice' WHERE custom_id='$id'";
@@ -65,7 +65,7 @@ if (isset($_POST['editcustom'])) {
 
 if (isset($_POST['deletecustom'])) {
     $remove = $_POST['editid'];
-    $db = mysqli_connect("localhost","root","","pinocone");
+    $db = mysqli_connect("localhost","root","12345678","pinocone");
     $deleteitem=  "DELETE FROM custom WHERE custom_id='$remove'";
 	mysqli_query($db,$deleteitem);
 }
@@ -97,13 +97,13 @@ if (isset($_POST['deletecustom'])) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
+      <a class="navbar-brand" href="index.php">Pinocone Catering</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="index.php">Home</a></li>
+			<li><a href="index.php">Home</a></li>
             <?php
                 $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
                 $result = mysqli_query($con, $check);
@@ -138,7 +138,7 @@ if (isset($_POST['deletecustom'])) {
                 } else {
             ?>
 			     <li><a href="modfood.php">Edit food</a></li>
-                <li><a href="custom.php">Edit Sets</a></li>
+                <li  class="active"><a href="custom.php">Edit Sets</a></li>
             <?php
             }
             ?>
@@ -150,7 +150,7 @@ if (isset($_POST['deletecustom'])) {
 </nav>
 <?php
         
-            $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+            $connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
        
             $query = "SELECT * FROM products ORDER by id";
             $result = mysqli_query($connect, $query);
@@ -248,7 +248,7 @@ if (isset($_POST['deletecustom'])) {
     
     
     <?php
-        $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+        $connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 
         $query = "SELECT * FROM custom ORDER by custom_id";
         $result = mysqli_query($connect, $query);
@@ -313,6 +313,7 @@ if (isset($_POST['deletecustom'])) {
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
 <!-- FOR SIDE CART -->
 <script src="style.js"></script> 

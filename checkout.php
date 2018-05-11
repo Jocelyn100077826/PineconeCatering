@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con = mysqli_connect('localhost', 'root', '', 'pinocone');
+$con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 
 $orderstring = ""; 
 $quantity = 0;
@@ -88,13 +88,14 @@ $total= $_POST['total'];
 $price = $_POST['price'];
 $deliD = $_POST['delidate'];
 $deliT= $_POST['delitime'];
-$comment= $_POST['comment'];
+$city = $_POST['city'];
+$address= $_POST['address'];
     
     
     
-$db = mysqli_connect("localhost","root","","pinocone");
+$db = mysqli_connect("localhost","root","12345678","pinocone");
 date_default_timezone_set('Asia/Kuala_Lumpur');
-$mysql = "INSERT INTO `orders`(`username`, `product name`, `quantity`, `total`, `unitprice`, `date`, `deli_date`, `deli_time`, `comment`) VALUES ('".$_SESSION['username']."', '$items','$quantity','$total','$price','".date("Y-m-d H:i:s")."','$deliD','$deliT','$comment')";
+$mysql = "INSERT INTO `orders`(`username`, `product name`, `quantity`, `total`, `unitprice`, `date`, `deli_date`, `deli_time`, `city`, `address`) VALUES ('".$_SESSION['username']."', '$items','$quantity','$total','$price','".date("Y-m-d H:i:s")."','$deliD','$deliT', '$city','$address')";
 mysqli_query($db, $mysql);
 echo '<script>location= "success.php";</script>';
 }
@@ -146,7 +147,7 @@ function pre_r($array)
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
+      <a class="navbar-brand" href="index.php">Pinocone Catering</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -326,7 +327,14 @@ function pre_r($array)
                            <hr/>
                             <p>Delivery Date: <input type="date" name="delidate"/></p>
                             <p>Delivery Time<input type="time" name="delitime"/></p>
-                            <p>Address: <textarea name="comment" rows="4" cols="50"></textarea></p>
+                            <p>City:
+                            <select name='city' id="city">
+                              <option value="Kuching">Kuching</option>
+                              <option value="Miri">Miri</option>
+                              <option value="Sibu">Sibu</option>
+                              <option value="Bintulu">Bintulu</option>
+                                </select></p>
+                            <p>Address: <textarea name="comment" rows="4" cols="50" required></textarea></p>
 
                         
                            
@@ -356,6 +364,7 @@ function pre_r($array)
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div>  
 
     

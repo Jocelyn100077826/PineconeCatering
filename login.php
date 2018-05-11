@@ -28,13 +28,7 @@
                     
                       <div class="form-group">
 						<label for="username">User Name: </label>
-						<input type="text" name="username" id="uname" class="form-control" required/> 
-                          <?php
-                          
-//                          if (isset($_POST["username"])) echo $_POST["name"];
-                          
-                          ?>
-                          
+						<input type="text" name="username" id="uname" class="form-control" required/>  
 						<span id="error_uname" class="text-danger"></span>
 					</div>
                     
@@ -61,6 +55,7 @@
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+    <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
             
 

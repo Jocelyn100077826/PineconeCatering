@@ -1,6 +1,6 @@
 <?php
         session_start();
-        $con = mysqli_connect('localhost', 'root', '', 'pinocone');
+        $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
         $update = false;
 
     //if upload button is pressed
@@ -29,7 +29,7 @@
 
 if (isset($_POST['del'])) {
     $id = $_POST['hidden'];
-    $db = mysqli_connect("localhost","root","","pinocone");
+    $db = mysqli_connect("localhost","root","12345678","pinocone");
     $deleteitem=  "DELETE FROM products WHERE id='$id'";
 	mysqli_query($db,$deleteitem);
 }
@@ -37,7 +37,7 @@ if (isset($_POST['del'])) {
 if (isset($_POST['edit'])) {
     $id = $_POST['hidden'];
     $update = true;
-    $db = mysqli_connect("localhost","root","","pinocone");
+    $db = mysqli_connect("localhost","root","12345678","pinocone");
     $sql = "SELECT * FROM products WHERE id='$id'";
     $result = mysqli_query($db, $sql);
     while ($row = mysqli_fetch_array($result)){
@@ -108,7 +108,7 @@ if (isset($_POST['edit'])) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
+      <a class="navbar-brand" href="index.php">Pinocone Catering</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -225,7 +225,7 @@ if (isset($_POST['edit'])) {
         </tr>
         
             <?php
-                    $db = mysqli_connect("localhost","root","","pinocone");
+                    $db = mysqli_connect("localhost","root","12345678","pinocone");
                     $sql = "SELECT * FROM products";
                     $result = mysqli_query($db, $sql);
                     while ($row = mysqli_fetch_array($result)){
@@ -255,6 +255,7 @@ if (isset($_POST['edit'])) {
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+     <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
 
     

@@ -1,7 +1,7 @@
 <?php
     session_start();
     // connect to the database
-    $con = mysqli_connect('localhost', 'root', '', 'pinocone');
+    $con = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 	$errors = array();
 	
 	if (isset($_POST['register'])) {
@@ -39,7 +39,7 @@
 		// Save to database if no errors
 		if (count($errors) == 0) {
 			$sql = $con->query("INSERT INTO users (firstname, lastname, email, username, password) VALUES('{$fname}', '{$lname}', '{$email}', '{$username}', '{$password}')");
-            echo "<script>alert('Register Successfully'); location = 'login.php';</script>";
+            echo "<script>alert('Registration Successful'); location = 'login.php';</script>";
 			
 		}	
 	}

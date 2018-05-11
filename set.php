@@ -80,13 +80,13 @@ if(filter_input(INPUT_POST, 'buynow')){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php">Pinecone</a>
+      <a class="navbar-brand" href="index.php">Pinecone Catering</a>
     </div> 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="index.php">Home</a></li>
+			<li><a href="index.php">Home</a></li>
             <?php
                 $check = "SELECT * FROM users WHERE username = '".$_SESSION['username']."'";
                 $result = mysqli_query($con, $check);
@@ -94,10 +94,10 @@ if(filter_input(INPUT_POST, 'buynow')){
                 if($row[6] == '0')
                 {
             ?>
-			<li class="dropdown">
+			<li class=" active dropdown">
 			  <a href="category.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-				<li><a href="set.php">Sets</a></li>
+				<li  class="active"><a href="set.php">Sets</a></li>
 				<li><a href="category.php">Categories</a></li>
 			  </ul>
 			</li>
@@ -143,7 +143,7 @@ if(filter_input(INPUT_POST, 'buynow')){
     
     
     <?php
-        $connect = mysqli_connect('localhost', 'root', '', 'pinocone');
+        $connect = mysqli_connect('localhost', 'root', '12345678', 'pinocone');
 
         $query = "SELECT * FROM custom ORDER by custom_id";
         $result = mysqli_query($connect, $query);
@@ -274,6 +274,7 @@ if(filter_input(INPUT_POST, 'buynow')){
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+     <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
 <!-- FOR SIDE CART -->
 <script src="style.js"></script> 

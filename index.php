@@ -1,7 +1,8 @@
 <?php
 require 'server.php';
-//session_start();
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@ require 'server.php';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pinocone</a>
+      <a class="navbar-brand" href="index.php">Pinocone Catering</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,7 +51,7 @@ require 'server.php';
 			</li>
           <li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php
-					if($result = $con->query("SELECT username FROM users WHERE id = 1")) {
+					if($result = $con->query("SELECT username FROM users WHERE id = '".$_SESSION['id']."'")) {
 					if($count = $result->num_rows) {
 						while ($row = $result->fetch_object()){
 							echo $row->username;
@@ -154,6 +155,7 @@ require 'server.php';
 	<p>Steven : 010-8328234</p>
 	<p>Alberto : 019-43942934</p>
 	<p>Malibu : 013-24567892</p>
+     <p class="m-0 text-center text-white">Copyright &copy; Pinecone Catering 2018 DP2 Project</p>
 </div> 
 <!-- FOR SIDE CART -->
 <script src="style.js"></script> 
